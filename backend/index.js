@@ -14,21 +14,8 @@ const app = express();
 
 // ── Middleware ─────────────────────────────────────────────────────────────────
 
-const allowedOrigins = process.env.ALLOWED_ORIGINS
-  ? process.env.ALLOWED_ORIGINS.split(",")
-  : ["http://localhost:5173", "http://localhost:4173"];
-
-app.use(
-  cors({
-    origin: (origin, cb) => {
-      // Allow requests with no origin (mobile apps, curl, etc.)
-      if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
-      cb(new Error("Not allowed by CORS"));
-    },
-    methods: ["GET", "POST", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type"],
-  })
-);
+// Allow all origins for the assignment deployment
+app.use(cors());
 
 app.use(express.json());
 
